@@ -1,7 +1,14 @@
 const util = require('./util');
 
+let device = $device.info
+console.log(device.screen.width)
 function sayHello() {
   $ui.render({
+    props: {
+      bgcolor: $rgba(235, 235, 235, 1),
+      navBarHidden: true,
+      statusBarStyle: 0
+    },
     views: [
       {
         type: "label",
@@ -9,22 +16,42 @@ function sayHello() {
           text: "0",
           align: $align.center,
           id: "number",
-          font: $font("bold", 150)
+          font: $font("bold", 150),
+          bgcolor: $rgba(255, 255, 255, 1),
+          smoothRadius: 15
         },
         layout: function(make, view) {
           make.centerX.equalTo()
+          make.top.equalTo(40)
+          make.size.equalTo($size(device.screen.width - 30, 200))
+        }
+      },
+      {
+        type: "label",
+        props: {
+          text: "",
+          align: $align.center,
+          id: "time",
+          font: $font("bold", 30),
+          hidden: true
+        },
+        layout: function(make, view) {
+          make.top.equalTo($("number").bottom).offset(45)
+          make.centerX.equalTo(0)
         }
       },
       {
         type: "button",
         props: {
-          title: "Start",
-          id: "start"
+          title: "开始",
+          id: "start",
+          circular: true,
         },
         layout: function(make, view) {
-          make.top.equalTo($("number").bottom).offset(30)
-          make.centerX.equalTo(-40)
-          make.width.equalTo(64)
+          make.size.equalTo($size(100, 100))
+          make.bottom.equalTo().inset(100)
+          make.centerX.equalTo()
+          make.width.equalTo(100)
         },
         events: {
           tapped: function(sender) {
@@ -35,11 +62,13 @@ function sayHello() {
       {
         type: "button",
         props: {
-          title: "Stop"
+          title: "结束",
+          id: "stop",
+          hidden: true
         },
         layout: function(make, view) {
-          make.top.equalTo($("number").bottom).offset(30)
-          make.centerX.equalTo(40)
+          make.top.equalTo($("start").bottom).offset(20)
+          make.centerX.equalTo()
           make.width.equalTo(64)
         },
         events: {
