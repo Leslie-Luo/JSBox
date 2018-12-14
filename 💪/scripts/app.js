@@ -1,12 +1,12 @@
 const util = require('./util');
 
-let device = $device.info
-console.log(device.screen.width)
+let device = $device.info;
+
 function sayHello() {
   $ui.render({
     props: {
-      bgcolor: $rgba(235, 235, 235, 1),
-      navBarHidden: true,
+      bgcolor: $color("#F4F5F7"),
+      // navBarHidden: true,
       statusBarStyle: 0
     },
     views: [
@@ -17,8 +17,8 @@ function sayHello() {
           align: $align.center,
           id: "number",
           font: $font("bold", 150),
-          bgcolor: $rgba(255, 255, 255, 1),
-          smoothRadius: 15
+          bgcolor: $color("#FFFFFF"),
+          smoothRadius: 10
         },
         layout: function(make, view) {
           make.centerX.equalTo()
@@ -64,10 +64,11 @@ function sayHello() {
         props: {
           title: "结束",
           id: "stop",
-          hidden: true
+          alpha: 0
         },
         layout: function(make, view) {
-          make.top.equalTo($("start").bottom).offset(20)
+          make.size.equalTo($size(60, 30))
+          make.top.equalTo($("start").bottom).offset(0)
           make.centerX.equalTo()
           make.width.equalTo(64)
         },
