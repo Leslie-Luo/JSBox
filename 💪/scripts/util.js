@@ -1,5 +1,9 @@
 const monitor = require('./monitor');
 const animate = require('./animate');
+const file = require('./file');
+
+var ExerciseData = file.read();
+console.log(ExerciseData)
 
 // 锻炼用时⌛  ️
 var time = 0;
@@ -81,7 +85,11 @@ function Start() {
         }
     }
 }
-
+// 储存数据
+function StorageData(result) {
+    ExerciseData["Push-up"].push(result);
+    file.write(ExerciseData);
+}
 // 结束锻炼
 function Stop() {
     StopAnimate.Hide()
@@ -94,6 +102,12 @@ function Stop() {
             var id = result.id
         }
     })
+    let result = {
+        "number": number,
+        "time_used": time,
+        "time": Date.now()
+    }
+    StorageData(result)
     time = 0
     suspend = false
     StopMonitor() //结束传感器监听
